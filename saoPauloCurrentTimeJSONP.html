@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+ 
+ <script>
+var saoPauloCurrentTime = new Promise(function(resolve, reject) {
+	$.ajax({ 
+	   type: "GET",
+	   dataType: "jsonp",
+	   url: "http://jsonpwrapper.com/?urls%5B%5D=http%3A%2F%2Fworldtimeapi.org%2Fapi%2Ftimezone%2FAmerica%2FSao_Paulo&callback=?",
+	   success: function(data){        
+	     var datetime = JSON.parse(data[0].body).datetime;
+	     var time = datetime.substring(datetime.indexOf("T")+1,datetime.indexOf("."));
+	     resolve(time.replace(":","").replace(":",""));
+	   }, error: function(){resolve("");}
+	});
+});
+
+saoPauloCurrentTime.then(function(value) {
+console.log(value);
+});
+</script>
+
+</head>
+<body>
+</body>
+</html>
